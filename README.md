@@ -107,7 +107,7 @@
 
 {{ Outline three features that will be your stretch goals if you finish your MVP }}
 
-- [] Stretch goal one
+- [] Update Account Details
 - [] Stretch goal two
 - [] Stretch goal three
 
@@ -133,9 +133,7 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 
 ## Wireframes
 
-{{ Insert your wireframes }}
-
-![image info goes here](./docs/image.png)
+![First Draft wireframes](images/Crowdfunding_wireframes.svg)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
