@@ -108,7 +108,7 @@
 
 - [] User able to update account details
 - [] Have created/updated dates as current datetime, but created date not to be updated after initial post
-- [] Prevent pledge PUT from allowing project field to be changed
+- [X] Prevent pledge PUT from allowing project field to be changed
 - [] Pledges not to be created or updated if project is closed
 - [] Project owner only able to update open/closed field if project has been set to closed
 
