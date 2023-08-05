@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from .models import Project,Pledge
 from .serializers import ProjectSerializer,PledgeSerializer,ProjectDetailSerializer, PledgeDetailSerializer
 from django.http import Http404
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from .permissions import IsOwnerOrReadOnly, IsSupporterOrReadOnly
 
 class ProjectList(APIView):
@@ -121,3 +121,11 @@ class PledgeDetail(APIView):
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
         )
+
+class PledgeDeleteView(generics.DestroyAPIView):
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.IsAdminUser
+    ]
+    queryset = Pledge.objects.all()
+    serializer_class = PledgeDetailSerializer
