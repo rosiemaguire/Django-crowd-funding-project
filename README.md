@@ -107,10 +107,12 @@
 ### Stretch Goals/ Roadmap
 
 - [] User able to update account details
-- [] Have created/updated dates as current datetime, but created date not to be updated after initial post
+- [X] Have created/updated dates as current datetime, but created date not to be updated after initial post
 - [X] Prevent pledge PUT from allowing project field to be changed
-- [] Pledges not to be created or updated if project is closed
+- [X] Pledges not to be created or updated if project is closed
 - [] Project owner only able to update open/closed field if project has been set to closed
+- [] Validation to ensure at least one field is modified in PUT Request (rather than just updating the last_modified date because PUT request fields are identical to data in table)
+- [] Users able to "soft delete" (e.g. set deleted field to 1 which hides in front end) own pledges/projects
 
 See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-project/issues) for a full list of proposed features (and known issues).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

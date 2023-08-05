@@ -73,17 +73,25 @@ class PledgeList(APIView):
         return Response(serializer.data)
     
     def post(self,request):
+        pledge = request.data
+        project = Project.objects.get(pk=pledge['project'])
         serializer = PledgeSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(supporter=request.user)
+        if project.is_open == True:
+            if serializer.is_valid():
+                serializer.save(supporter=request.user)
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                )
             return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
             )
-        return Response(
-            serializer.errors,
-            status=status.HTTP_400_BAD_REQUEST
-        )
+        else:
+            return Response(
+                { 'message': "Project is not open" },                
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 class PledgeDetail(APIView):
     permission_classes = [
@@ -103,7 +111,7 @@ class PledgeDetail(APIView):
         pledge = self.get_object(pk)
         serializer = PledgeDetailSerializer(pledge)
         return Response(serializer.data)
-        
+
     def put(self,request,pk):
         pledge = self.get_object(pk)
         serializer = PledgeDetailSerializer(
@@ -111,16 +119,21 @@ class PledgeDetail(APIView):
             data=request.data,
             partial=True
         )
-        if serializer.is_valid():
-            serializer.save()
+        if pledge.project.is_open == True:
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                        serializer.data,
+                        status=status.HTTP_201_CREATED
+                    )
             return Response(
-                serializer.data,
-                status=status.HTTP_201_CREATED
+                serializer.errors,
+                status=status.HTTP_400_BAD_REQUEST
             )
         return Response(
-            serializer.errors,
+            { 'message': "Project is not open" },
             status=status.HTTP_400_BAD_REQUEST
-        )
+            )
 
 class PledgeDeleteView(generics.DestroyAPIView):
     permission_classes = [
@@ -129,3 +142,11 @@ class PledgeDeleteView(generics.DestroyAPIView):
     ]
     queryset = Pledge.objects.all()
     serializer_class = PledgeDetailSerializer
+
+class ProjectDeleteView(generics.DestroyAPIView):
+    permission_classes = [
+        permissions.IsAuthenticatedOrReadOnly,
+        permissions.IsAdminUser
+    ]
+    queryset = Project.objects.all()
+    serializer_class = ProjectDetailSerializer

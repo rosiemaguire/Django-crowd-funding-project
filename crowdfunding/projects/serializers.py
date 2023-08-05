@@ -28,7 +28,7 @@ class ProjectDetailSerializer(ProjectSerializer):
     return instance
   
 class PledgeDetailSerializer(PledgeSerializer):
-  
+
   def update(self,instance,validated_data):
     instance.amount = validated_data.get('amount', instance.amount)
     instance.comment = validated_data.get('comment', instance.comment)
