@@ -107,8 +107,9 @@
 {{ Outline three features that will be your stretch goals if you finish your MVP }}
 
 - [] Update Account Details
-- [] Stretch goal two
-- [] Stretch goal three
+- [] Pledges able to be created without comment (optional field)
+- [] Have created/updated dates as current datetime, but created date not to be updated after initial post
+- [] Prevent pledge PUT from allowing project field to be changed
 
 See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-project/issues) for a full list of proposed features (and known issues).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -160,17 +161,43 @@ To get a local copy up and running follow these simple example steps.
 Deployed Project: [Deployed website](http://linkhere.com/)
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- `python`
+- `pip`
+- unrestricted execution policy (Windows requirement)
 
 ### How To Run
 
-{{ What steps to take to run this code }}
+- Clone a copy of this repo to your local machine. This can be done in the command line by navigating to the desired directory, then running:
+
+        git clone https://github.com/rosiemaguire/django-project-she-codes-news.git
+- Once you have a local version of this repository, you'll need to set up your virtual environment:
+    -  navigate to the folder that contains the `requirements.txt` file
+    - If you're on a windows machine, run the command 
+            
+            . venv/Scripts/activate
+    - If you're on a mac, run the command 
+            
+            source venv/bin/activate
+    - Install the Django library: 
+            
+            python -m pip install -r requirements.txt
+    - Check installation was successful: 
+    
+            python -m pip freeze
+    - Change directory to where manage.py is located:
+            
+            cd crowdfunding
+    - Make the inital migrations:
+        
+            python manage.py migrate
+
+    - Now with everything set up, you'll just need to run the server!
+
+            python manage.py runserver
+    
+    <!-- Add information about accessing via API Tool (e.g. Insomnia, Postman) and front end urls -->
+    - When you're finished press CTRL+C to quit the server
+    - Deactivate the virtual environment by either using the command `deactivate` or terminate your terminal session.
 
 ### Updated Database Schema
 
