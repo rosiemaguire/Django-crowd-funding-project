@@ -97,19 +97,20 @@
 
 ## Features
 
-{{ The features your MVP will include. (Remebber this is a working document, you can change these as you go!) }}
-
-- [] feature
-- [] feature
+- [X] User Log in/Out
+- [X] Project creation (must be logged in user)
+- [X] Project owner can update project
+- [X] Pledge creation (must be logged in as user)
+- [X] Pledge supporter can update pledge
+- [X] Pledges able to be created without comment (optional field)
 
 ### Stretch Goals/ Roadmap
 
-{{ Outline three features that will be your stretch goals if you finish your MVP }}
-
-- [] Update Account Details
-- [] Pledges able to be created without comment (optional field)
+- [] User able to update account details
 - [] Have created/updated dates as current datetime, but created date not to be updated after initial post
 - [] Prevent pledge PUT from allowing project field to be changed
+- [] Pledges not to be created or updated if project is closed
+- [] Project owner only able to update open/closed field if project has been set to closed
 
 See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-project/issues) for a full list of proposed features (and known issues).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -119,15 +120,16 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 | HTTP Method | Url       | Purpose              | Request Body   | Successful Response Code | Authentication <br /> Authorization |
 | ----------- | --------- | -------------------- | -------------- | ------------------------ | ----------------------------------- |
 | GET         | projects/ | Return all projects  | N/A            | 200                      | N/A                                 |
+| GET         | pledges/ | Return all pledges  | N/A            | 200                      | N/A                                 |
 | POST        | projects/ | Create a new project | project object | 201                      | User must be logged in.             |
-
+| POST        | pledges/ | Create a new pledge | pledge object | 201                      | User must be logged in.             |
+| PUT        | projects/< int:pk >/ | Update project | project object or project field | 201                      | User must be logged in.             |
+| PUT        | pledges/< int:pk >/ | Update pledge | pledge object or pledge field | 201                      | User must be logged in.             |
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Database Schema
 
-{{ Insert your database schema }}
-
-![image info goes here](./docs/image.png)
+![First Draft Database Schema](images/DatabaseSchema.svg)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -169,7 +171,7 @@ Deployed Project: [Deployed website](http://linkhere.com/)
 
 - Clone a copy of this repo to your local machine. This can be done in the command line by navigating to the desired directory, then running:
 
-        git clone https://github.com/rosiemaguire/django-project-she-codes-news.git
+        git clone https://github.com/rosiemaguire/Django-crowd-funding-project.git
 - Once you have a local version of this repository, you'll need to set up your virtual environment:
     -  navigate to the folder that contains the `requirements.txt` file
     - If you're on a windows machine, run the command 
@@ -218,13 +220,13 @@ Deployed Project: [Deployed website](http://linkhere.com/)
 ### Screenshots
 
 - [] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
-  ![image info goes here](./docs/image.png)
+  ![GET REQUEST RETURNING PROJECTS](images/Insomnia_Successful_GET_Request.png)
 
 - [] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
-  ![image info goes here](./docs/image.png)
+  ![PLEDGE POST REQUEST](images/Insomnia_Successful_POST_Request.png)
 
 - [] A screenshot of Insomnia, demonstrating a token being returned.
-![image info goes here](./docs/image.png)
+![AUTHENTICATION TOKEN POST REQUEST](images/Insomnia_Returning_Token.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
