@@ -119,14 +119,20 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 
 ## API Specification
 
-| HTTP Method | Url       | Purpose              | Request Body   | Successful Response Code | Authentication <br /> Authorization |
-| ----------- | --------- | -------------------- | -------------- | ------------------------ | ----------------------------------- |
-| GET         | projects/ | Return all projects  | N/A            | 200                      | N/A                                 |
-| GET         | pledges/ | Return all pledges  | N/A            | 200                      | N/A                                 |
-| POST        | projects/ | Create a new project | project object | 201                      | User must be logged in.             |
-| POST        | pledges/ | Create a new pledge | pledge object | 201                      | User must be logged in.             |
-| PUT        | projects/< int:pk >/ | Update project | project object or project field | 201                      | User must be logged in.             |
-| PUT        | pledges/< int:pk >/ | Update pledge | pledge object or pledge field | 201                      | User must be logged in.             |
+| HTTP Method | Url                  | Purpose              | Request Body                   | Successful Response Code | Authentication <br /> Authorization       |
+| ----------- | -------------------- | -------------------- | ------------------------------ | ------------------------ | ----------------------------------------- |
+| GET         | projects/            | Return all projects  | N/A                            | 200                      | N/A                                       |
+| GET         | pledges/             | Return all pledges   | N/A                            | 200                      | N/A                                       |
+| GET         | users/               | Return all users     | N/A                            | 200                      | N/A                                       |
+| POST        | projects/            | Create a new project | project object                 | 201                      | User must be logged in.                   |
+| POST        | pledges/             | Create a new pledge  | pledge object                  | 201                      | User must be logged in.                   |
+| POST        | users/               | Create a new pledge  | user object                    | 201                      | N/A                                       |
+| PUT         | projects/< int:pk >/ | Update project       | project object or project field| 201                      | User (project owner) must be logged       |
+| PUT         | pledges/< int:pk >/  | Update pledge        | pledge object or pledge field  | 201                      | User (pledge supporter) must be logged in.|
+| PUT         | users/< int:pk >/    | Update user          | user object or user field      | 201                      | User must be logged in.                   |
+| DEL         | projects/< int:pk >/ | Delete Project       |  N/A                           | 204                      | User must be logged in as administrator.  |
+| DEL         | projects/< int:pk >/ | Delete Project       |  N/A                           | 204                      | User must be logged in as administrator.  |
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Database Schema
@@ -221,13 +227,13 @@ Deployed Project: [Deployed website](http://linkhere.com/)
 
 ### Screenshots
 
-- [] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
+- [X] A screenshot of Insomnia, demonstrating a successful GET method for any endpoint.
   ![GET REQUEST RETURNING PROJECTS](images/Insomnia_Successful_GET_Request.png)
 
-- [] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
+- [X] A screenshot of Insomnia, demonstrating a successful POST method for any endpoint.
   ![PLEDGE POST REQUEST](images/Insomnia_Successful_POST_Request.png)
 
-- [] A screenshot of Insomnia, demonstrating a token being returned.
+- [X] A screenshot of Insomnia, demonstrating a token being returned.
 ![AUTHENTICATION TOKEN POST REQUEST](images/Insomnia_Returning_Token.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -140,13 +140,36 @@ class PledgeDeleteView(generics.DestroyAPIView):
         permissions.IsAuthenticatedOrReadOnly,
         permissions.IsAdminUser
     ]
-    queryset = Pledge.objects.all()
-    serializer_class = PledgeDetailSerializer
+
+    def get_object(self,pk):
+        try:
+            pledge = Pledge.objects.get(pk=pk)
+            self.check_object_permissions(self.request,pledge)
+            return pledge
+        except Pledge.DoesNotExist:
+            raise Http404
+    
+    def delete(self,request,pk):
+        pledge = self.get_object(pk)
+        pledge.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ProjectDeleteView(generics.DestroyAPIView):
     permission_classes = [
         permissions.IsAuthenticatedOrReadOnly,
         permissions.IsAdminUser
     ]
-    queryset = Project.objects.all()
-    serializer_class = ProjectDetailSerializer
+
+    def get_object(self,pk):
+        try:
+            project = Project.objects.get(pk=pk)
+            self.check_object_permissions(self.request,project)
+            return project
+        except Project.DoesNotExist:
+            raise Http404
+    
+    def delete(self,request,pk):
+        project = self.get_object(pk)
+        project.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
