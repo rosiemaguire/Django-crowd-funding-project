@@ -168,7 +168,7 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-Deployed Project: [Deployed website](http://linkhere.com/)
+Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 
 ### Prerequisites
 - `python`
