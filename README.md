@@ -106,7 +106,7 @@
 
 ### Stretch Goals/ Roadmap
 
-- [] User able to update account details
+- [X] User able to update account details
 - [X] Have created/updated dates as current datetime, but created date not to be updated after initial post
 - [X] Prevent pledge PUT from allowing project field to be changed
 - [X] Pledges not to be created or updated if project is closed
@@ -129,7 +129,7 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 | POST        | users/               | Create a new pledge  | user object                    | 201                      | N/A                                       |
 | PUT         | projects/< int:pk >/ | Update project       | project object or project field| 201                      | User (project owner) must be logged       |
 | PUT         | pledges/< int:pk >/  | Update pledge        | pledge object or pledge field  | 201                      | User (pledge supporter) must be logged in.|
-| PUT         | users/< int:pk >/    | Update user          | user object or user field      | 201                      | User must be logged in.                   |
+| PUT         | users/< int:pk >/    | Update user          | user object or user field      | 201                      | User (self or staff) must be logged in.   |
 | DEL         | projects/< int:pk >/ | Delete Project       |  N/A                           | 204                      | User must be logged in as administrator.  |
 | DEL         | projects/< int:pk >/ | Delete Project       |  N/A                           | 204                      | User must be logged in as administrator.  |
 
