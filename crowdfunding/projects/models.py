@@ -14,7 +14,6 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         related_name='owned_projects'
     )
-    # date_updated = models.DateTimeField(auto_now_add=True)
 
 class Pledge(models.Model):
     amount = models.IntegerField()
