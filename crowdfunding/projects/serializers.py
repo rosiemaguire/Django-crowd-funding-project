@@ -22,8 +22,6 @@ class ProjectDetailSerializer(ProjectSerializer):
     instance.goal = validated_data.get('goal', instance.goal)
     instance.image = validated_data.get('image', instance.image)
     instance.is_open = validated_data.get('is_open', instance.is_open)
-    # instance.date_created = validated_data.get(instance.date_created)
-    instance.owner = validated_data.get('owner', instance.owner)
     instance.save()
     return instance
   
@@ -33,7 +31,5 @@ class PledgeDetailSerializer(PledgeSerializer):
     instance.amount = validated_data.get('amount', instance.amount)
     instance.comment = validated_data.get('comment', instance.comment)
     instance.anonymous = validated_data.get('anonymous', instance.anonymous)
-    # instance.project = validated_data.get('project',instance.project) # removing to prevent pledge from being updated to another project
-    instance.supporter = validated_data.get('supporter', instance.supporter)
     instance.save()
     return instance
