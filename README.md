@@ -356,7 +356,7 @@ Project Link: [https://github.com/rosiemaguire/Django-crowd-funding-project](htt
 [Python-url]: https://www.python.org/
 [colour-palette]: images/ColorHuntPaletteb5f1cce5fdd1c9f4aafcc2fc.png
 [colour-palette.url]: https://colorhunt.co/palette/b5f1cce5fdd1c9f4aafcc2fc
-[font-family-1]:images\Just-Another-Hand-font.png
+[font-family-1]:images/Just-Another-Hand-font.png
 [font-family-1.url]:https://fonts.google.com/specimen/Just+Another+Hand
-[font-family-2]:images\Handlee-font.png
+[font-family-2]:images/Handlee-font.png
 [font-family-2.url]:https://fonts.google.com/specimen/Handlee?preview.text=Handlee&preview.text_type=custom&category=Handwriting
