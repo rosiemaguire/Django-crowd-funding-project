@@ -5,8 +5,8 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     goal = models.IntegerField()
-    image = models.URLField()
-    is_open = models.BooleanField()
+    image = models.URLField(max_length=200,default='https://picsum.photos/600')
+    is_open = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(
@@ -14,7 +14,6 @@ class Project(models.Model):
         on_delete=models.CASCADE,
         related_name='owned_projects'
     )
-    # date_updated = models.DateTimeField(auto_now_add=True)
 
 class Pledge(models.Model):
     amount = models.IntegerField()
