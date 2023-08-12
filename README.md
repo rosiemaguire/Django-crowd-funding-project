@@ -18,7 +18,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/rosiemaguire/Django-crowd-funding-project">
-    <!-- <img src="images/logo.png" alt="Logo" width="80" height="80"> -->
+    <img src="images/logo.png" alt="Logo" width="413" height="357">
   </a>
 
 <h1 align="center">Advocat</h3>
@@ -52,7 +52,7 @@
     <li>
       <a href="#features">Features</a>
       <ul>
-        <li><a href="#stretch-goals">Stretch Goals</a></li>
+        <li><a href="#stretch-goals-and-roadmap">Stretch Goals</a></li>
       </ul>
     </li>
     <li><a href="#api-specification">API Specification</a></li>
@@ -63,33 +63,29 @@
     <li><a href="#submission-documentation">Submission Documentation</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#how-to-run">How To Run</a></li>
+        <li><a href="#how-to-run-locally">How To Run Locally</a></li>
         <li><a href="#updated-database-schema">Updated Database Schema</a></li>
-        <li><a href="#updated-wireframes">Updated Wireframes</a></li>
+        <!-- <li><a href="#updated-wireframes">Updated Wireframes</a></li> -->
         <li><a href="#how-to-register-a-new-user">How To Register a New User</a></li>
         <li><a href="#screenshots">Screenshots</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">RoadMap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+
   </ol>
 </details>
 
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-This project, once the front end is available, will be a crowdfunding website to support people with raising funds for their furry children's medical expenses.
+<!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
+This project is the back end of a crowdfunding website which has been created to support people with raising funds for their furry children's medical expenses.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
-
+- Django Rest Framework
 - [![Django][Django.com]][Django-url]
 - [![Python][Python.org]][Python-url]
 
@@ -105,18 +101,16 @@ This project, once the front end is available, will be a crowdfunding website to
 - [X] Pledges able to be created without comment (optional field)
 - [X] User able to update own details (and Admins able to update any user's details)
 - [X] Created date field for projects and pledges are automatically set based on when the pledge/project was created
-- [X] Last modified date for projects and ledges are automatically updated with each PUT request
-- [X] Project pledge is for cannot be modified in Pledge PUT requests
+- [X] Last modified date for projects and pledges are automatically updated with each PUT request
+
+### Stretch Goals and Roadmap
+
+- [X] Pledge put request does not allow any modification of which project it is attached to
 - [X] Pledges cannot be created or modified for projects that are set to closed
-
-### Stretch Goals/ Roadmap
-
-- [] Project owner only able to update open/closed field if project has been set to closed
-- [] Validation to ensure at least one field is modified in PUT Request (rather than just updating the last_modified date because PUT request fields are identical to data in table)
-- [] Users able to "soft delete" projects and pledges they own (e.g. set deleted field to 1 which hides in front end) own pledges/projects
-- [] Prevent new users from being created as administrator or superuser unless it is authenticated by an existing administrator 
-- [] Prevent users from being created as administrator or superuser unless it is authenticated by an existing administrator
-- [] Prevent last_login and date_joined fields from being set at user creation
+- [ ] Project owner only able to update open/closed field if project has been set to closed
+- [ ] Validation to ensure at least one field is modified in PUT Request (rather than just updating the last_modified date because PUT request fields are identical to data in table)
+- [ ] Users able to "soft delete" projects and pledges they own (e.g. set deleted field to 1 which hides in front end) own pledges/projects
+- [ ] Put restrictions around user creation
 
 See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-project/issues) for a full list of proposed features (and known issues).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -124,19 +118,19 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 ## API Specification
 
 | HTTP Method | Url                  | Purpose                                | Request Body                   | Successful Response Code | Authentication <br /> Authorization       |
-| ----------- | -------------------- | -------------------------------------- | ------------------------------ | ------------------------ | ----------------------------------------- |
-| GET         | projects/            | Return all projects                    | N/A                            | 200                      | N/A                                       |
-| GET         | pledges/             | Return all pledges                     | N/A                            | 200                      | N/A                                       |
-| GET         | users/               | Return all users                       | N/A                            | 200                      | N/A                                       |
-| POST        | projects/            | Create a new project                   | project object                 | 201                      |  Bearer Token authentication. <br /> User must be logged in.                    |
-| POST        | pledges/             | Create a new pledge                    | pledge object                  | 201                      | Bearer Token authentication. <br /> User must be logged in.                   |
-| POST        | users/               | Create a new user                      | user object                    | 201                      | N/A                                       |
-| POST        | api-token-auth/      | Obtain Bearer Token for Authorisation  | username and password          | 200                      | N/A                                       |
-| PUT         | projects/< int:pk >/ | Update project                         | project object or project field| 201                      | Bearer Token authentication. <br /> User must be logged in. <br /> Must be the owner of the project.      |
-| PUT         | pledges/< int:pk >/  | Update pledge                          | pledge object or pledge field  | 201                      | Bearer Token authentication. <br /> User must be logged in. <br /> Must be the owner of the pledge.|
+| ----------- | -------------------- | -------------------------------------- | ------------------------------ | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| GET         | projects/            | Return all projects                    | N/A                            | 200                      | N/A                                                                                                                                         |
+| GET         | pledges/             | Return all pledges                     | N/A                            | 200                      | N/A                                                                                                                                         |
+| GET         | users/               | Return all users                       | N/A                            | 200                      | N/A                                                                                                                                         |
+| POST        | projects/            | Create a new project                   | project object                 | 201                      |  Bearer Token authentication. <br /> User must be logged in.                                                                                            |
+| POST        | pledges/             | Create a new pledge                    | pledge object                  | 201                      | Bearer Token authentication. <br /> User must be logged in.                                                                                            |
+| POST        | users/               | Create a new user                      | user object                    | 201                      | N/A                                                                                                                                         |
+| POST        | api-token-auth/      | Obtain Bearer Token for Authorisation  | username and password          | 200                      | N/A                                                                                                                                         |
+| PUT         | projects/< int:pk >/ | Update project                         | project object or project field| 201                      | Bearer Token authentication. <br /> User must be logged in. <br /> Must be the owner of the project.                                                   |
+| PUT         | pledges/< int:pk >/  | Update pledge                          | pledge object or pledge field  | 201                      | Bearer Token authentication. <br /> User must be logged in. <br /> Must be the owner of the pledge.                                                    |
 | PUT         | users/< int:pk >/    | Update user                            | user object or user field      | 201                      | Bearer Token authentication. <br /> User  must be logged in. <br /> Must be the user that is being updated or a user with Administrator permissions.   |
-| DEL         | projects/< int:pk >/ | Delete Project                          |  N/A                           | 204                      | Bearer Token authentication. <br /> User  must be logged in. <br /> Must be a user with Administrator permissions. |
-| DEL         | projects/< int:pk >/ | Delete Project                          |  N/A                           | 204                      | Bearer Token authentication. <br /> User must be logged in as administrator.  |
+| DEL         | projects/< int:pk >/ | Delete Project                         |  N/A                           | 204                      | Bearer Token authentication. <br /> User  must be logged in. <br /> Must be a user with Administrator permissions.                                     |
+| DEL         | projects/< int:pk >/ | Delete Project                         |  N/A                           | 204                      | Bearer Token authentication. <br /> User must be logged in as administrator.                                                                           |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -161,19 +155,19 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 
 ## Fonts
 
-[![Font Family][font-family]][font-family.url]
+[![Header Font Family][font-family-1]][font-family-1.url]<br>
+[![Body Font Family][font-family-2]][font-family-2.url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Submission Documentation
 
-{{ Fill this section out for submission }}
-
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
+<!-- <details> -->
 
 ### Prerequisites
 - `python`
@@ -216,19 +210,16 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 
 ### Updated Database Schema
 
-{{ Updated schema }}
+![Database Schema as at 12/08/23](images/DatabaseSchema_230812.svg)
 
-![image info goes here](./docs/image.png)
-
-### Updated Wireframes
+<!-- ### Updated Wireframes
 
 {{  Updated wireframes }}
 
-![image info goes here](./docs/image.png)
+![image info goes here](./docs/image.png) -->
 
 ### How To Register a New User
 
-{{ Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data). }}
 #### Create the user
 - Create a new HTTP Request in your favourite API Tool (e.g. Postman, Insomnia)
     - Use the endpoint https://advocat.fly.dev/users/
@@ -316,7 +307,7 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 - [X] A screenshot of Insomnia, demonstrating a token being returned.
 ![AUTHENTICATION TOKEN POST REQUEST](images/Insomnia_Returning_Token.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+<!-- </details> -->
 <!-- CONTRIBUTING -->
 
 ## Contributing
@@ -365,5 +356,7 @@ Project Link: [https://github.com/rosiemaguire/Django-crowd-funding-project](htt
 [Python-url]: https://www.python.org/
 [colour-palette]: images/ColorHuntPaletteb5f1cce5fdd1c9f4aafcc2fc.png
 [colour-palette.url]: https://colorhunt.co/palette/b5f1cce5fdd1c9f4aafcc2fc
-[font-family]:
-[font-family.url]:
+[font-family-1]:images\Just-Another-Hand-font.png
+[font-family-1.url]:https://fonts.google.com/specimen/Just+Another+Hand
+[font-family-2]:images\Handlee-font.png
+[font-family-2.url]:https://fonts.google.com/specimen/Handlee?preview.text=Handlee&preview.text_type=custom&category=Handwriting
