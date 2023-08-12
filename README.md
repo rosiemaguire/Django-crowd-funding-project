@@ -84,7 +84,7 @@
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
-{{ A paragraph detailing the purpose and target audience for your website. }}
+This project, once the front end is available, will be a crowdfunding website to support people with raising funds for their furry children's medical expenses.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,35 +103,40 @@
 - [X] Pledge creation (must be logged in as user)
 - [X] Pledge supporter can update pledge
 - [X] Pledges able to be created without comment (optional field)
+- [X] User able to update own details (and Admins able to update any user's details)
+- [X] Created date field for projects and pledges are automatically set based on when the pledge/project was created
+- [X] Last modified date for projects and ledges are automatically updated with each PUT request
+- [X] Project pledge is for cannot be modified in Pledge PUT requests
+- [X] Pledges cannot be created or modified for projects that are set to closed
 
 ### Stretch Goals/ Roadmap
 
-- [X] User able to update account details
-- [X] Have created/updated dates as current datetime, but created date not to be updated after initial post
-- [X] Prevent pledge PUT from allowing project field to be changed
-- [X] Pledges not to be created or updated if project is closed
 - [] Project owner only able to update open/closed field if project has been set to closed
 - [] Validation to ensure at least one field is modified in PUT Request (rather than just updating the last_modified date because PUT request fields are identical to data in table)
-- [] Users able to "soft delete" (e.g. set deleted field to 1 which hides in front end) own pledges/projects
+- [] Users able to "soft delete" projects and pledges they own (e.g. set deleted field to 1 which hides in front end) own pledges/projects
+- [] Prevent new users from being created as administrator or superuser unless it is authenticated by an existing administrator 
+- [] Prevent users from being created as administrator or superuser unless it is authenticated by an existing administrator
+- [] Prevent last_login and date_joined fields from being set at user creation
 
 See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-project/issues) for a full list of proposed features (and known issues).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## API Specification
 
-| HTTP Method | Url                  | Purpose              | Request Body                   | Successful Response Code | Authentication <br /> Authorization       |
-| ----------- | -------------------- | -------------------- | ------------------------------ | ------------------------ | ----------------------------------------- |
-| GET         | projects/            | Return all projects  | N/A                            | 200                      | N/A                                       |
-| GET         | pledges/             | Return all pledges   | N/A                            | 200                      | N/A                                       |
-| GET         | users/               | Return all users     | N/A                            | 200                      | N/A                                       |
-| POST        | projects/            | Create a new project | project object                 | 201                      | User must be logged in.                   |
-| POST        | pledges/             | Create a new pledge  | pledge object                  | 201                      | User must be logged in.                   |
-| POST        | users/               | Create a new pledge  | user object                    | 201                      | N/A                                       |
-| PUT         | projects/< int:pk >/ | Update project       | project object or project field| 201                      | User (project owner) must be logged       |
-| PUT         | pledges/< int:pk >/  | Update pledge        | pledge object or pledge field  | 201                      | User (pledge supporter) must be logged in.|
-| PUT         | users/< int:pk >/    | Update user          | user object or user field      | 201                      | User (self or staff) must be logged in.   |
-| DEL         | projects/< int:pk >/ | Delete Project       |  N/A                           | 204                      | User must be logged in as administrator.  |
-| DEL         | projects/< int:pk >/ | Delete Project       |  N/A                           | 204                      | User must be logged in as administrator.  |
+| HTTP Method | Url                  | Purpose                                | Request Body                   | Successful Response Code | Authentication <br /> Authorization       |
+| ----------- | -------------------- | -------------------------------------- | ------------------------------ | ------------------------ | ----------------------------------------- |
+| GET         | projects/            | Return all projects                    | N/A                            | 200                      | N/A                                       |
+| GET         | pledges/             | Return all pledges                     | N/A                            | 200                      | N/A                                       |
+| GET         | users/               | Return all users                       | N/A                            | 200                      | N/A                                       |
+| POST        | projects/            | Create a new project                   | project object                 | 201                      |  Bearer Token authentication. <br /> User must be logged in.                    |
+| POST        | pledges/             | Create a new pledge                    | pledge object                  | 201                      | Bearer Token authentication. <br /> User must be logged in.                   |
+| POST        | users/               | Create a new user                      | user object                    | 201                      | N/A                                       |
+| POST        | api-token-auth/      | Obtain Bearer Token for Authorisation  | username and password          | 200                      | N/A                                       |
+| PUT         | projects/< int:pk >/ | Update project                         | project object or project field| 201                      | Bearer Token authentication. <br /> User must be logged in. <br /> Must be the owner of the project.      |
+| PUT         | pledges/< int:pk >/  | Update pledge                          | pledge object or pledge field  | 201                      | Bearer Token authentication. <br /> User must be logged in. <br /> Must be the owner of the pledge.|
+| PUT         | users/< int:pk >/    | Update user                            | user object or user field      | 201                      | Bearer Token authentication. <br /> User  must be logged in. <br /> Must be the user that is being updated or a user with Administrator permissions.   |
+| DEL         | projects/< int:pk >/ | Delete Project                          |  N/A                           | 204                      | Bearer Token authentication. <br /> User  must be logged in. <br /> Must be a user with Administrator permissions. |
+| DEL         | projects/< int:pk >/ | Delete Project                          |  N/A                           | 204                      | Bearer Token authentication. <br /> User must be logged in as administrator.  |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -175,7 +180,7 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 - `pip`
 - unrestricted execution policy (Windows requirement)
 
-### How To Run
+### How To Run Locally
 
 - Clone a copy of this repo to your local machine. This can be done in the command line by navigating to the desired directory, then running:
 
@@ -205,7 +210,7 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 
             python manage.py runserver
     
-    <!-- Add information about accessing via API Tool (e.g. Insomnia, Postman) and front end urls -->
+    - Use the url http://127.0.0.1:8000/, your favourite API Tool (e.g. Insomnia, Postman) and refer to the [API Specifications](#api-specification) to create HTTP requests 
     - When you're finished press CTRL+C to quit the server
     - Deactivate the virtual environment by either using the command `deactivate` or terminate your terminal session.
 
@@ -224,6 +229,81 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 ### How To Register a New User
 
 {{ Step by step instructions for how to register a new user and create a new project (i.e. endpoints and body data). }}
+#### Create the user
+- Create a new HTTP Request in your favourite API Tool (e.g. Postman, Insomnia)
+    - Use the endpoint https://advocat.fly.dev/users/
+- Choose the POST method
+- Change the body type to JSON
+    - Minimum fields required to create a new user:
+        - username
+        - password
+    - Example request body:
+
+            {
+              "username": "janedoe",
+              "password": "strongrandompassword",
+              "email": "jane@doe.com"
+            }
+- A successful request will return a 200 response and return the user object
+
+          {
+            "id": 9,
+            "last_login": null,
+            "is_superuser": false,
+            "username": "janedoe",
+            "first_name": "",
+            "last_name": "",
+            "email": "jane@doe.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2023-08-12T12:45:29.767395+10:00",
+            "groups": [],
+            "user_permissions": []
+          }
+#### Log In (Obtain the bearer token)
+- Create a new HTTP POST Request using the endpoint https://advocat.fly.dev/api-token-auth/
+- Change the body type to JSON
+- Provide the username and password in the body
+    - Example request body:
+
+            {
+              "username": "janedoe",
+              "password": "strongrandompassword"
+            }
+- A successful request will return a 200 response along with the token you will need to make requests that require authentication
+
+          {
+            "token": "c07f7a567c5f29db440bfbd2846b97ffe34f0088"
+          }
+#### Create a project
+- Create a new HTTP POST Request using the endpoint https://advocat.fly.dev/projects/
+- Change the body type to JSON
+    - Minimum fields required:
+        - title
+        - description
+        - goal
+    - Example request body:
+
+            {
+              "title": "Test Project",
+              "description": "This is a test project",
+              "goal": 150,
+              "image": "https://picsum.photos/600",
+              "is_open": true
+            }
+- A successful request will return a 201 response and the project object just created
+
+        {
+          "id": 1,
+          "owner": 1,
+          "title": "Test Project",
+          "description": "This is a test project",
+          "goal": 150,
+          "image": "https://picsum.photos/600",
+          "is_open": true,
+          "date_created": "2023-08-12T14:58:21.824004+10:00",
+          "last_modified": "2023-08-12T14:58:21.824028+10:00"
+        }
 
 ### Screenshots
 
@@ -264,15 +344,6 @@ Project Link: [https://github.com/rosiemaguire/Django-crowd-funding-project](htt
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGMENTS -->
-
-## Acknowledgments
-
-- []()
-- []()
-- []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
