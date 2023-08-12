@@ -1,15 +1,14 @@
 name: Fly Deploy
 on:
   push:
-    branches:
-    # - main
+  workflow_dispatch:
 
 env:
   BRANCH_REF_NAME: ${{ github.ref_name }}
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     name: Deploy app
     runs-on: ubuntu-latest
     environment: production
