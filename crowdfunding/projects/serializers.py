@@ -24,6 +24,7 @@ class ProjectDetailSerializer(ProjectSerializer):
     instance.is_open = validated_data.get('is_open', instance.is_open)
     instance.is_deleted = validated_data.get('is_deleted', instance.is_deleted)
     if instance.is_deleted == True:
+      instance.is_open = False
       for pledge in instance.pledges.all():
         pledge.is_deleted = True
         pledge.save()
