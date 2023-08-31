@@ -70,7 +70,7 @@ class PledgeList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     def get(self,request):
-        pledges = Pledge.objects.all()
+        pledges = Pledge.objects.all().filter(is_deleted=False)
         serializer = PledgeSerializer(pledges,many=True)
         return Response(serializer.data)
     
@@ -103,7 +103,9 @@ class PledgeDetail(APIView):
 
     def get_object(self,pk):
         try:
-            pledge = Pledge.objects.get(pk=pk)
+            pledges = Pledge.objects.all().filter(is_deleted=False)
+            pledge = pledges.get(pk=pk)
+            # pledge = Pledge.objects.get(pk=pk)
             self.check_object_permissions(self.request,pledge)
             return pledge
         except Pledge.DoesNotExist:
