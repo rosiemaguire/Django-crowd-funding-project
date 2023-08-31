@@ -10,7 +10,7 @@ class ProjectList(APIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def get(self,request):
-        projects = Project.objects.all()
+        projects = Project.objects.all().filter(is_deleted=False)
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
     
@@ -35,7 +35,9 @@ class ProjectDetail(APIView):
 
     def get_object(self,pk):
         try:
-            project = Project.objects.get(pk=pk)
+            projects = Project.objects.all().filter(is_deleted=False)
+            project = projects.get(pk=pk)
+            # project = Project.objects.get(pk=pk)
             self.check_object_permissions(self.request,project)
             return project
         except Project.DoesNotExist:
