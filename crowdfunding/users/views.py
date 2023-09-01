@@ -7,9 +7,12 @@ from .serializers import CustomUserSerializer
 from .permissions import UserUpdatePermission
 
 class CustomUserList(APIView):
-    
+
     def get(self,request):
-        users = CustomUser.objects.all()
+        if self.request.user.is_staff:
+            users = CustomUser.objects.all()
+        else:
+            users = CustomUser.objects.all().filter(pk=self.request.user.id)
         serializer = CustomUserSerializer(users, many=True)
         return Response(serializer.data)
     
@@ -21,10 +24,8 @@ class CustomUserList(APIView):
         return Response(serializer.errors)
 
 class CustomUserDetail(APIView):
-    permission_classes = [
-        permissions.IsAuthenticatedOrReadOnly,
-        UserUpdatePermission
-    ]
+    permission_classes = [UserUpdatePermission]
+    
     def get_object(self,pk):
         try:
             user = CustomUser.objects.get(pk=pk)
