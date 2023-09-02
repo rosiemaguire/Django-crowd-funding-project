@@ -107,7 +107,7 @@ This project is the back end of a crowdfunding website which has been created to
 
 - [X] Pledge put request does not allow any modification of which project it is attached to
 - [X] Pledges cannot be created or modified for projects that are set to closed
-- [ ] Project owner only able to update open/closed field if project has been set to closed
+- [X] Project owner only able to update open/closed and deleted field if project has been set to closed
 - [ ] Validation to ensure at least one field is modified in PUT Request (rather than just updating the last_modified date because PUT request fields are identical to data in table)
 - [X] Users able to "soft delete" projects and pledges they own (e.g. set deleted field to 1 which hides in front end) own pledges/projects
 - [ ] Put restrictions around user creation
