@@ -7,14 +7,33 @@ from .serializers import CustomUserSerializer
 from .permissions import UserUpdatePermission
 
 class CustomUserList(APIView):
-
+    # def get_queryset(self, request):
+    #     if request.user.is_staff:
+    #         return CustomUser.objects.all()
+    #     else:
+    #         users = CustomUser.objects.all()
+    #         users = users.values('username','first_name','last_name','email','date_joined')
+    #         users = users.filter(pk=self.request.user.id)
+    #         return users
+    
+    # def get(self,request):
+    #     users = self.get_queryset(request)
+    #     serializer = CustomUserSerializer(users, many=True)
+    #     return Response(serializer.data)
+    
     def get(self,request):
         if request.user.is_staff:
             users = CustomUser.objects.all()
+            serializer = CustomUserSerializer(users, many=True)
+            return Response(serializer.data)
         else:
-            users = CustomUser.objects.all().filter(pk=self.request.user.id)
-        serializer = CustomUserSerializer(users, many=True)
-        return Response(serializer.data)
+            users = CustomUser.objects.all()
+            
+            # users = users.values('username','first_name','last_name','email','date_joined','last_login')
+            users = users.get(pk=self.request.user.id)
+            data = CustomUserSerializer.get_restricted_data(users)
+            serializer = CustomUserSerializer(users, data=data,many=True)
+            return Response(serializer.initial_data)
     
     def post(self,request):
         serializer = CustomUserSerializer(data=request.data)
@@ -38,7 +57,12 @@ class CustomUserList(APIView):
 
 class CustomUserDetail(APIView):
     permission_classes = [UserUpdatePermission]
-    
+
+    # def get_restricted_data(self,instance):
+    #     return {
+    #         'username': instance.username,
+
+    #     }
     def get_object(self,pk):
         try:
             user = CustomUser.objects.get(pk=pk)
@@ -49,8 +73,18 @@ class CustomUserDetail(APIView):
     
     def get(self,request,pk):
         user = self.get_object(pk)
-        serializer = CustomUserSerializer(user)
-        return Response(serializer.data)
+        self.check_object_permissions(self.request,user)
+        if request.user.is_staff:
+            serializer = CustomUserSerializer(user)
+            return Response(serializer.data)
+        else:
+            data = CustomUserSerializer.get_restricted_data(user)
+            serializer = CustomUserSerializer(user,data=data)
+            return Response(serializer.initial_data)
+        # if request.user.is_staff:
+        #     return Response(serializer.data)
+        # else:
+        
     
     def put(self,request,pk):
         user = self.get_object(pk)      

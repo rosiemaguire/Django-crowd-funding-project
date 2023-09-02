@@ -18,3 +18,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
         instance.email = validated_data.get('email', instance.email)
         instance.save()
         return instance
+    
+    def get_restricted_data(self):
+        return {
+            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+            'date_joined': self.date_joined
+        }
+    
