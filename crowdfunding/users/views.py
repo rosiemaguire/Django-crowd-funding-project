@@ -7,25 +7,53 @@ from .serializers import CustomUserSerializer
 from .permissions import UserUpdatePermission
 
 class CustomUserList(APIView):
-
+    
     def get(self,request):
-        if self.request.user.is_staff:
+        if request.user.is_staff:
             users = CustomUser.objects.all()
+            serializer = CustomUserSerializer(users, many=True)
+            return Response(serializer.data)
+        elif request.user.is_authenticated:
+            users = CustomUser.objects.all().get(pk=self.request.user.id)
+            data = CustomUserSerializer.get_restricted_data(users)
+            serializer = CustomUserSerializer(users, data=data,many=True)
+            return Response(serializer.initial_data)
         else:
-            users = CustomUser.objects.all().filter(pk=self.request.user.id)
-        serializer = CustomUserSerializer(users, many=True)
-        return Response(serializer.data)
+            return Response(
+                { "detail": "You do not have permission to perform this action." }, 
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+            
     
     def post(self,request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+            if request.user.is_staff:
+                serializer.save()
+                return Response(
+                    serializer.data,
+                    status=status.HTTP_201_CREATED
+                )
+            else:
+                serializer.save(
+                    is_staff=False,
+                    is_superuser=False
+                )
+                user = CustomUser.objects.all().get(pk=serializer.data['id'])
+                data = CustomUserSerializer.get_restricted_data(user)
+                results_returned = CustomUserSerializer(user,data=data)
+                return Response(
+                    results_returned.initial_data,
+                    status=status.HTTP_201_CREATED
+                )
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 class CustomUserDetail(APIView):
     permission_classes = [UserUpdatePermission]
-    
+
     def get_object(self,pk):
         try:
             user = CustomUser.objects.get(pk=pk)
@@ -36,8 +64,14 @@ class CustomUserDetail(APIView):
     
     def get(self,request,pk):
         user = self.get_object(pk)
-        serializer = CustomUserSerializer(user)
-        return Response(serializer.data)
+        self.check_object_permissions(self.request,user)
+        if request.user.is_staff:
+            serializer = CustomUserSerializer(user)
+            return Response(serializer.data)
+        else:
+            data = CustomUserSerializer.get_restricted_data(user)
+            serializer = CustomUserSerializer(user,data=data)
+            return Response(serializer.initial_data)
     
     def put(self,request,pk):
         user = self.get_object(pk)      
