@@ -9,7 +9,7 @@ from .permissions import UserUpdatePermission
 class CustomUserList(APIView):
 
     def get(self,request):
-        if self.request.user.is_staff:
+        if request.user.is_staff:
             users = CustomUser.objects.all()
         else:
             users = CustomUser.objects.all().filter(pk=self.request.user.id)
@@ -19,9 +19,22 @@ class CustomUserList(APIView):
     def post(self,request):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
+            if request.user.is_staff:
+                serializer.save()
+            else:
+                serializer.save(
+                    is_staff=False,
+                    is_superuser=False
+                )
+                serializer.save()
+            return Response(
+                serializer.data,
+                status=status.HTTP_201_CREATED
+            )
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 class CustomUserDetail(APIView):
     permission_classes = [UserUpdatePermission]
