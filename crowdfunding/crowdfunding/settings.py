@@ -33,7 +33,7 @@ DEBUG = os.environ.get(
 
 
 ALLOWED_HOSTS = ['*']
-CORS_ALLOW_ALL_0RIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 CSRF_TRUSTED_ORIGINS = ['https://*.fly.dev']
 
 
