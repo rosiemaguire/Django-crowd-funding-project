@@ -12,7 +12,7 @@ class Project(models.Model):
     owner = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name='owned_projects'
+        related_name='owner_projects'
     )
     is_deleted = models.BooleanField(default=False)
 

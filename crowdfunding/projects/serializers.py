@@ -3,12 +3,14 @@ from django.apps import apps
 
 class PledgeSerializer(serializers.ModelSerializer):
   supporter = serializers.ReadOnlyField(source='supporter.id')
+  supporter = serializers.StringRelatedField()
   class Meta:
     model = apps.get_model('projects.Pledge')
     fields = '__all__'
 
 class ProjectSerializer(serializers.ModelSerializer):
   owner = serializers.ReadOnlyField(source='owner.id')
+  owner = serializers.StringRelatedField()
   class Meta:        
     model = apps.get_model('projects.Project')        
     fields = '__all__'
