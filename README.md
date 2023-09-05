@@ -80,7 +80,7 @@
 
 ## About The Project
 <!-- [![Product Name Screen Shot][product-screenshot]](https://example.com) -->
-This project is the back end of a crowdfunding website which has been created to support people with raising funds for their furry children's medical expenses.
+This project is the back end of a crowdfunding website which has been created to support people with raising funds for their furry children's medical expenses. You can find the front end repository [here][front-end-repo].
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,7 +121,7 @@ See the [open issues](https://github.com/rosiemaguire/Django-crowd-funding-proje
 | ----------- | -------------------- | -------------------------------------- | ------------------------------ | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | GET         | projects/            | Return all projects                    | N/A                            | 200                      | N/A                                                                                                                                         |
 | GET         | pledges/             | Return all pledges                     | N/A                            | 200                      | N/A                                                                                                                                         |
-| GET         | users/               | Return all users                       | N/A                            | 200                      | N/A                                                                                                                                         |
+| GET         | users/               | Return all users                       | N/A                            | 200                      | Bearer Token authentication. <br /> Administrator user can view list of all users. Non administrator user will only return own user object.                                                                                                                                         |
 | POST        | projects/            | Create a new project                   | project object                 | 201                      |  Bearer Token authentication. <br /> User must be logged in.                                                                                            |
 | POST        | pledges/             | Create a new pledge                    | pledge object                  | 201                      | Bearer Token authentication. <br /> User must be logged in.                                                                                            |
 | POST        | users/               | Create a new user                      | user object                    | 201                      | N/A                                                                                                                                         |
@@ -210,7 +210,7 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 
 ### Updated Database Schema
 
-![Database Schema as at 12/08/23](images/DatabaseSchema_230812.svg)
+![Database Schema as at 12/08/23](images/DatabaseSchema_230905.svg)
 
 <!-- ### Updated Wireframes
 
@@ -238,18 +238,11 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 - A successful request will return a 200 response and return the user object
 
           {
-            "id": 9,
-            "last_login": null,
-            "is_superuser": false,
             "username": "janedoe",
             "first_name": "",
             "last_name": "",
             "email": "jane@doe.com",
-            "is_staff": false,
-            "is_active": true,
-            "date_joined": "2023-08-12T12:45:29.767395+10:00",
-            "groups": [],
-            "user_permissions": []
+            "date_joined": "2023-08-12T12:45:29.767395+10:00"
           }
 #### Log In (Obtain the bearer token)
 - Create a new HTTP POST Request using the endpoint https://advocat.fly.dev/api-token-auth/
@@ -286,7 +279,7 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 
         {
           "id": 1,
-          "owner": 1,
+          "owner": "admin",
           "title": "Test Project",
           "description": "This is a test project",
           "goal": 150,
@@ -360,3 +353,4 @@ Project Link: [https://github.com/rosiemaguire/Django-crowd-funding-project](htt
 [font-family-1.url]:https://fonts.google.com/specimen/Just+Another+Hand
 [font-family-2]:images/Handlee-font.png
 [font-family-2.url]:https://fonts.google.com/specimen/Handlee?preview.text=Handlee&preview.text_type=custom&category=Handwriting
+[front-end-repo]:https://github.com/rosiemaguire/crowdfunding-frontend
