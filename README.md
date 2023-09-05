@@ -18,7 +18,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/rosiemaguire/Django-crowd-funding-project">
-    <img src="images/logo.png" alt="Logo" width="413" height="357">
+    <img src="images/logo.png" alt="Logo" width="413" height="413">
   </a>
 
 <h1 align="center">Advocat</h3>
