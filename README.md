@@ -210,7 +210,7 @@ Deployed Project: [Deployed website](https://advocat.fly.dev/projects/)
 
 ### Updated Database Schema
 
-![Database Schema as at 12/08/23](images/DatabaseSchema_230905.svg)
+![Updated Database Schema](images/DatabaseSchema_updated.svg)
 
 <!-- ### Updated Wireframes
 
