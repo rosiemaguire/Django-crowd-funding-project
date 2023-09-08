@@ -85,7 +85,6 @@ This project is the back end of a crowdfunding website which has been created to
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
-- Django Rest Framework
 - [![Django][Django.com]][Django-url]
 - [![Python][Python.org]][Python-url]
 
