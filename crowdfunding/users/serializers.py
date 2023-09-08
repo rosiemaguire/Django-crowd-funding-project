@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import CustomUser
+from django.contrib.auth.validators import ASCIIUsernameValidator
 
 class CustomUserSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.id')
@@ -7,6 +8,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = '__all__'
         extra_kwargs = {'password': {'write_only': True}}
+    
+    def validate_username(self, value):
+        if CustomUser.objects.filter(username__iexact=value).exists():
+            raise serializers.ValidationError("A user with this username already exists.")
+        return value
     
     def create(self,validated_data):
         return CustomUser.objects.create_user(**validated_data)
