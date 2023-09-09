@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    goal = models.IntegerField()
+    goal = models.FloatField()
     image = models.URLField(max_length=200,default='https://picsum.photos/600')
     is_open = models.BooleanField(default=True)
     date_created = models.DateTimeField(auto_now_add=True)
@@ -17,7 +17,7 @@ class Project(models.Model):
     is_deleted = models.BooleanField(default=False)
 
 class Pledge(models.Model):
-    amount = models.IntegerField()
+    amount = models.FloatField()
     comment = models.CharField(max_length=200, null=True)
     anonymous = models.BooleanField()
     date_created = models.DateTimeField(auto_now_add=True)
