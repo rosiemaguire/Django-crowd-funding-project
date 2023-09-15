@@ -184,3 +184,16 @@ class ProjectDeleteView(generics.DestroyAPIView):
         project = self.get_object(pk)
         project.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UserProjectView(APIView):
+    def get(self,request):
+        projects = Project.objects.all().filter(is_deleted=False,owner=request.user)
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+
+class UserPledgeView(APIView):
+    def get(self,request):
+        pledges = Pledge.objects.all().filter(is_deleted=False,supporter=request.user)
+        serializer = PledgeSerializer(pledges,many=True)
+        return Response(serializer.data)
+    
