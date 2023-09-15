@@ -187,13 +187,19 @@ class ProjectDeleteView(generics.DestroyAPIView):
 
 class UserProjectView(APIView):
     def get(self,request):
-        projects = Project.objects.all().filter(is_deleted=False,owner=request.user)
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+        if request.user.is_authenticated:
+            projects = Project.objects.all().filter(is_deleted=False,owner=request.user)
+            serializer = ProjectSerializer(projects, many=True)
+            return Response(serializer.data)
+        else:
+            return Response({ "detail": "No projects to view." })
 
 class UserPledgeView(APIView):
     def get(self,request):
-        pledges = Pledge.objects.all().filter(is_deleted=False,supporter=request.user)
-        serializer = PledgeSerializer(pledges,many=True)
-        return Response(serializer.data)
+        if request.user.is_authenticated:
+            pledges = Pledge.objects.all().filter(is_deleted=False,supporter=request.user)
+            serializer = PledgeSerializer(pledges,many=True)
+            return Response(serializer.data)
+        else:
+            return Response({ "detail": "No pledges to view." })
     
