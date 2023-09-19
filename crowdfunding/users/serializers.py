@@ -7,7 +7,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = '__all__'
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True}, 'email' : {'required': True}}
     
     def validate_username(self, value):
         if CustomUser.objects.filter(username__iexact=value).exists():
