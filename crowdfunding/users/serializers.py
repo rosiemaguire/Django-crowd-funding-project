@@ -27,6 +27,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     
     def get_restricted_data(self):
         return {
+            'id': self.id,
             'username': self.username,
             'first_name': self.first_name,
             'last_name': self.last_name,
