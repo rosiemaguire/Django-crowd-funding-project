@@ -7,7 +7,7 @@ from .serializers import CustomUserSerializer
 from .permissions import UserUpdatePermission
 
 class CustomUserList(APIView):
-    
+    #test
     def get(self,request):
         if request.user.is_staff:
             users = CustomUser.objects.all()
